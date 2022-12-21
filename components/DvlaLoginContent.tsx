@@ -22,7 +22,7 @@ function DvlaLoginContent() {
               <option>Ama</option>
            </Select>
            <PhoneInput label="Phone Number" type="tel" placeholder='Enter Phone Number'/>
-           <Button label="Continue" type="submit" position="right"/>
+           <Button label="Continue" type="submit" position="right" onClick={null}/>
         </form>
       </div>
     </div>
