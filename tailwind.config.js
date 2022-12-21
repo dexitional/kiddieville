@@ -5,8 +5,23 @@ module.exports = {
     './components/**/*.{js,ts,jsx,tsx}',
     './app/**/*.{js,ts,jsx,tsx}',
   ],
+  
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        circular: ["CircularStd"],
+        sand: ['Quicksand'],
+        sans: ["sans-serif"],
+        //sans: ["'Lucida Sans'","'Lucida Sans Unicode'","'Circular Std'","sans-serif"],
+      }
+    },
   },
-  plugins: [],
+
+  plugins: [
+    require('@tailwindcss/forms'),
+  ],
+  corePlugins: {
+    fontFamily: true,
+  },
+  
 }
