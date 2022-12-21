@@ -29,6 +29,10 @@ function Sidebar() {
             <DashNav title="Expenses" />
             <DashNav title="User accounts" />
             <DashNav title="System Reports" />
+            {/* Student's Management */}
+            {/* Staff Management */}
+            {/* Student's Management */}
+            {/* Student's Management */}
         </div>
         <div className="absolute bottom-8 w-[90%] mx-1 border-t border-white/10">
             <Logout title="Sign out" />
