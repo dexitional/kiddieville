@@ -13,8 +13,9 @@ function Sidebar() {
             <img src={Logo.src} className="mx-2 my-2 h-[100px] rounded-lg" />
             <div className="px-4 py-0 absolute right-0 -rotate-45 rounded text-xl font-bold text-yellow-900/80 bg-white/20 tracking-[0.25rem]">VILLE</div>
         </div>
-        <div className="space-y-2">
+        <div className="h-[32.2rem] space-y-2 overflow-scroll scrollbar-hide">
             <DashNav title="Dashboard" active />
+            {/*
             <DashNav title="Students" />
             <DashNav title="Attendance" />
             <DashNav title="Commutement" />
@@ -29,10 +30,32 @@ function Sidebar() {
             <DashNav title="Expenses" />
             <DashNav title="User accounts" />
             <DashNav title="System Reports" />
+            */}
+
             {/* Student's Management */}
+            <DashNav title="Student Record" />
+            <DashNav title="Student Attendance" />
+            <DashNav title="Reporting & Picking" />
             {/* Staff Management */}
-            {/* Student's Management */}
-            {/* Student's Management */}
+            <DashNav title="Profile" />
+            <DashNav title="Staff Record" />
+            <DashNav title="Staff Attendance" />
+            <DashNav title="Staff Tasks" />
+            <DashNav title="Lesson Plan" />
+            <DashNav title="Lesson Presentation" />
+            <DashNav title="Student Evaluation" />
+            {/* Account Management */}
+            <DashNav title="Student Fees" />
+            <DashNav title="Student Feeding" />
+            <DashNav title="Student Transport" />
+            <DashNav title="School Expenses " />
+            <DashNav title="Expenses " />
+            {/* Parent's Management */}
+            <DashNav title="Child Profile" />
+            <DashNav title="Child Attendance" />
+            <DashNav title="Child Pickups" />
+            <DashNav title="Child Payments ( fees/feeding/Transport balance)" />
+            <DashNav title="Child Evaluation" />
         </div>
         <div className="absolute bottom-8 w-[90%] mx-1 border-t border-white/10">
             <Logout title="Sign out" />

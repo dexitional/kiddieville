@@ -11,7 +11,7 @@ function MobileMenu() {
     
       <div className="py-3 px-3 md:hidden flex justify-between items-center bg-yellow-800/90 border-b border-gray-200">
         <img src={Logo.src} className="px-2 py-1.5 h-12 rounded-md bg-slate-800/20" />
-        <span className="px-2 py-1 rounded font-medium font-circular tracking-widest text-white text-[0.97rem] shadow-lg shadow-yellow-100/10">KIDDIE VILLE MONTESSORI</span>
+        <span className="px-2 py-1 rounded font-medium font-circular tracking-widest text-white text-[0.9rem] shadow-lg shadow-yellow-100/10">KIDDIE VILLE MONTESSORI</span>
         <Menu.Button>
           <GiHamburgerMenu className="p-2 h-10 w-10 text-white" aria-hidden="true"/>
         </Menu.Button>

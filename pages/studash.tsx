@@ -21,10 +21,10 @@ function Studash() {
       <div className="py-12 md:w-[55%] lg:w-[70%] mx-5 md:mx-auto flex flex-col space-y-6 items-center ">
          {/* Profile & Welcome */}
          <div className="flex flex-col items-center">
-            <h1 className="text-3xl font-bold ">Welcome, Lordina Livingstin</h1>
-            <p className="text-medium font-circular">KIDDIE VILLE STUDENT MANAGEMENT SYSTEM</p>
+            <h1 className="text-xl sm:text-3xl font-bold ">Welcome, Lordina Livingstin</h1>
+            <p className="text-xs sm:text-sm text-medium font-circular">KIDDIE VILLE STUDENT MANAGEMENT SYSTEM</p>
          </div>
-         <p className="px-6 py-3 w-full rounded-md font-medium font-circular text-center text-md text-zinc-500 bg-green-600/5">You are logged-in as a <span className="text-bold tracking-wide text-yellow-600">Parent | Tutor | Administrator | Accountant </span></p>
+         <p className="px-6 py-3 w-full rounded-md font-medium font-circular text-center text-sm sm:text-md text-zinc-500 bg-green-600/5">You are logged-in as a <span className="text-bold tracking-wide text-yellow-600">Parent | Tutor | Administrator | Accountant </span></p>
 
          {/* Cards */}
          <div className="w-full grid md:grid-cols-2 gap-4">
