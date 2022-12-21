@@ -5,7 +5,7 @@ import Login from './login'
 import Studash from './studash'
 
 const Home  = () => {
-  return <Studash />
+  return <Login />
 }
 
 export default Home
