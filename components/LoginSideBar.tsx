@@ -10,7 +10,7 @@ function LoginSideBar() {
         <img src={Bg.src} className="absolute z-2 w-full h-screen object-cover object-left opacity-20 blur-[5%] mix-blend-screen"/>
         <div className="p-8 z-10 flex flex-col text-white space-y-6 font-circular">
           <img src={Logo.src} className="w-36 h-36 object-contain filter mix-blend-screen rounded opacity-80"/>
-          <h1 className="text-2xl font-bold"><span className="text-yellow-300/60 text-3xl"><span className="text-7xl text-yellow-500/60 italic">KIDDIE VILLE</span><br/> MONTESSORI</span><br/>Student Mangement System</h1>
+          <h1 className="text-2xl font-bold"><span className="text-yellow-300/60 text-3xl"><span className="text-8xl text-yellow-500/60 italic">KIDDIE VILLE</span><br/> MONTESSORI</span><br/>Student Mangement System</h1>
           <p className="font-circular">Apply for your Student Admission ( all modes. )</p>
         </div>
         <div className="px-10 py-0 z-10 w-full h-[5.25rem] flex flex-row items-center justify-between bg-yellow-700/60 text-white">
