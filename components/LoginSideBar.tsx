@@ -15,7 +15,7 @@ function LoginSideBar() {
         </div>
         <div className="px-10 py-0 z-10 w-full h-[5.25rem] flex flex-row items-center justify-between bg-yellow-700/60 text-white">
         <Link href="#">
-            <span>Not a Student ? <span className="font-circular">Book an accomodation Now !</span></span>
+            <span>Not enrolled yet ? <span className="font-circular">Click to enroll child Now !</span></span>
         </Link>
         <FaChevronRight className="w-4 h-4  "/>
         </div>
