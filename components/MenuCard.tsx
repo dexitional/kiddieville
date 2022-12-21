@@ -8,12 +8,12 @@ function MenuCard({ title,desc,Icon,link_text,link = null }: any) {
     <div className="px-4 py-6 flex-1 flex flex-col justify-between rounded-lg bg-white">
         <div className="my-2">
           <div className="mb-4 w-12 h-12 flex items-center justify-center bg-green-600/5 rounded-full">
-          <Icon className="w-5 h-5 text-green-700/70" />
+          <Icon className="w-5 h-5 text-[#000131]" />
           </div>
-          <h3 className="font-bold font-arial">{title}</h3>
+          <h3 className="font-bold font-arial text-yellow-900">{title}</h3>
           <p className="text-slate-500 font-medium">{desc}</p>
         </div>
-        { link && <button onClick={() => history.push(link) } className="p-4 py-3 w-full bg-green-700 text-white font-bold rounded-lg">{link_text}</button> }
+        { link && <button onClick={() => history.push(link) } className="p-4 py-3 w-full bg-yellow-800/90 text-white font-bold rounded-lg">{link_text}</button> }
     </div>
   )
 }

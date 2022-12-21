@@ -21,9 +21,12 @@ function Sidebar() {
             <DashNav title="Classes" />
             <DashNav title="Subjects" />
             <DashNav title="Fees" />
-            <DashNav title="Fees" />
-            <DashNav title="Fees" />
-            <DashNav title="Fees" />
+            <DashNav title="Feeding" />
+            <DashNav title="Transport" />
+            <DashNav title="Payments" />
+            <DashNav title="Evaluations" />
+            <DashNav title="Expenses" />
+            <DashNav title="Expenses" />
             <DashNav title="User accounts" />
             <DashNav title="System Reports" />
         </div>
