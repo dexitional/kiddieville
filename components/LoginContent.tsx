@@ -16,7 +16,7 @@ function LoginContent() {
       </div>
       <div>
         <form className="space-y-3">
-           <Input label="Enter Username" type="text" placeholder='Enter Index Number or Username' />
+           <Input label="Enter Username" type="text" placeholder='Enter Username' />
            <Input label="Enter Password" type="password" placeholder='Enter Password' />
            <Button label="Continue" type="submit" position="right"/>
         </form>
