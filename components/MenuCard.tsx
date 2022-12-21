@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 function MenuCard({ title,desc,Icon,link_text,link = null }: any) {
   const history = useRouter()
   return (
-    <div className="px-4 py-6 flex-1 flex flex-col justify-between rounded-lg bg-white">
+    <div className="px-4 py-6 flex-1 flex flex-col justify-between border sm:border-none rounded-lg bg-white">
         <div className="my-2">
           <div className="mb-4 w-12 h-12 flex items-center justify-center bg-green-600/5 rounded-full">
           <Icon className="w-5 h-5 text-[#000131]" />
