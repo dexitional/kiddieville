@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import React from 'react'
 import Logo from '../public/logo.jpg'
 import Button from './Button'
@@ -6,6 +7,7 @@ import PhoneInput from './PhoneInput'
 import Select from './Select'
 
 function LoginContent() {
+  const router = useRouter()
   return (
     <div className="px-10 md:px-20 py-5 md:py-16 h-full min-h-screen flex-1 flex flex-col space-y-10 bg-[#fbf9f9]">
       <div className="space-y-3">
@@ -18,7 +20,7 @@ function LoginContent() {
         <form className="space-y-3">
            <Input label="Enter Username" type="text" placeholder='Enter Username' />
            <Input label="Enter Password" type="password" placeholder='Enter Password' />
-           <Button label="Continue" type="submit" position="right"/>
+           <Button label="Continue" type="submit" position="right" onClick={() => router.push('/studash') }/>
         </form>
       </div>
     </div>

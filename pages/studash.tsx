@@ -22,9 +22,9 @@ function Studash() {
          {/* Profile & Welcome */}
          <div className="flex flex-col items-center">
             <h1 className="text-3xl font-bold ">Welcome, Lordina Livingstin</h1>
-            <p className="text-medium font-circular">UHAS Hall Management System.</p>
+            <p className="text-medium font-circular">KIDDIE VILLE STUDENT MANAGEMENT SYSTEM</p>
          </div>
-         <p className="px-6 py-3 w-full rounded-md font-medium font-circular text-center text-md text-zinc-500 bg-green-600/5">You are logged-in as a <span className="text-bold tracking-wide text-yellow-600">Hall Porter</span></p>
+         <p className="px-6 py-3 w-full rounded-md font-medium font-circular text-center text-md text-zinc-500 bg-green-600/5">You are logged-in as a <span className="text-bold tracking-wide text-yellow-600">Parent | Tutor | Administrator | Accountant </span></p>
 
          {/* Cards */}
          <div className="w-full grid md:grid-cols-2 gap-4">

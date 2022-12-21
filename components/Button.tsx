@@ -5,12 +5,13 @@ type Props = {
     type:"submit" | "reset" | undefined ;
     label:string;
     position: string;
+    onClick: any
 }
 
-function Button({ label,type,position }: Props) {
+function Button({ label,type,position, onClick = null }: Props) {
   return (
     <div className={`flex ${position == 'left'? 'justify-start': position == 'right'? 'justify-end': 'justify-center'}`}>
-      <button className={`px-6 py-2 w-auto bg-yellow-800/90 font-bold text-white rounded-lg`} type={type}>
+      <button onClick={onClick} className={`px-6 py-2 w-auto bg-yellow-800/90 font-bold text-white rounded-lg`} type={type}>
         {label}
       </button>
     </div>
