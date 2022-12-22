@@ -32,23 +32,27 @@ function Sidebar() {
             <DashNav title="System Reports" />
             */}
 
+            <DashNav title="User Profile" />
             {/* Student's Management */}
             <DashNav title="Student Record" />
             <DashNav title="Student Attendance" />
-            <DashNav title="Reporting & Picking" />
-            {/* Staff Management */}
-            <DashNav title="Profile" />
+            <DashNav title="Student Pickup" />
+            <DashNav title="Student Evaluation" />
+            <DashNav title="Student Bills & Invoices" />
+            <DashNav title="Student Fees Payment" />
+            <DashNav title="Student Feeding & Canteen" />
+            <DashNav title="Student Transport" />
+            <DashNav title="Our Classes" />
+            <DashNav title="Our Subjects" />
+            <DashNav title="Our Tutors" />
+             {/* Staff Management */}
             <DashNav title="Staff Record" />
             <DashNav title="Staff Attendance" />
             <DashNav title="Staff Tasks" />
             <DashNav title="Lesson Plan" />
             <DashNav title="Lesson Presentation" />
-            <DashNav title="Student Evaluation" />
+           
             {/* Account Management */}
-            <DashNav title="Student Fees" />
-            <DashNav title="Student Feeding" />
-            <DashNav title="Student Transport" />
-            <DashNav title="School Expenses " />
             <DashNav title="Expenses " />
             {/* Parent's Management */}
             <DashNav title="Child Profile" />
@@ -56,6 +60,10 @@ function Sidebar() {
             <DashNav title="Child Pickups" />
             <DashNav title="Child Payments ( fees/feeding/Transport balance)" />
             <DashNav title="Child Evaluation" />
+            {/* Systems menus */}
+            <DashNav title="User accounts" />
+            <DashNav title="School Expenses " />
+            <DashNav title="System Reports" />
         </div>
         <div className="absolute bottom-8 w-[90%] mx-1 border-t border-white/10">
             <Logout title="Sign out" />

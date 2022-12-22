@@ -28,8 +28,16 @@ function Studash() {
 
          {/* Cards */}
          <div className="w-full grid md:grid-cols-2 gap-4">
-            <MenuCard title="Halls" desc="Manage list of halls in the management system. De-activate, activate and view all halls" Icon={HiHomeModern} link_text="View Halls" link="/login" />
-            <MenuCard title="Rooms" desc="Manage list of rooms in the management system. Assign room to a hall, view room list for a hall" Icon={MdMeetingRoom} link_text="View Rooms" link="/login" />
+            <MenuCard title="Student Record" desc="Manage list of students in the management system." Icon={HiHomeModern} link_text="View records" link="/student" />
+            <MenuCard title="Student Attendance" desc="Manage school attendace and student reporting." Icon={HiHomeModern} link_text="View records" link="/student" />
+            <MenuCard title="Student Pickups" desc="Manage assigned pickup persons of students." Icon={MdMeetingRoom} link_text="View records" link="/login" />
+            <MenuCard title="Student Evaluation" desc="Manage student performances & assessments." Icon={MdMeetingRoom} link_text="View records" link="/login" />
+            <MenuCard title="Student Bills & Invoices" desc="Manage student bills, invoices & charges." Icon={MdMeetingRoom} link_text="View records" link="/login" />
+            <MenuCard title="Student Fees Payment" desc="Manage student fees payments and other revenues." Icon={MdMeetingRoom} link_text="View records" link="/login" />
+            <MenuCard title="Student Feeding & Canteen" desc="Manage student feeding, canteen fees & payments." Icon={MdMeetingRoom} link_text="View records" link="/login" />
+            <MenuCard title="Student Transport" desc="Manage student transportation payments & reports." Icon={MdMeetingRoom} link_text="View records" link="/login" />
+            <MenuCard title="Student Bills & Invoices" desc="Manage student bills, invoices & charges." Icon={MdMeetingRoom} link_text="View records" link="/login" />
+            <MenuCard title="User Profile" desc="Manage and view profile of active user." Icon={HiHomeModern} link_text="View records" link="/student" />
             <MenuCard title="Hall Occupants" desc="Manage list of hall occupants in the management system. De-activate, activate and view all halls" Icon={FaRestroom} link_text="View Occupants" link="/login" />
             <MenuCard title="Room Reservations" desc="Start your application to get enrolled into the NSS Program at The Driver and Vehicle Liencsing Authority." Icon={GiBunkBeds} link_text="View Reservations" link="/login" />
             <MenuCard title="Accomodation Requests" desc="Start your application to get enrolled into the NSS Program at The Driver and Vehicle Liencsing Authority." Icon={BsStickies} link_text="View Requests" link="/login" />
