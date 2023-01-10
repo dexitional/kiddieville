@@ -29,7 +29,7 @@ function MobileMenu() {
         <Menu.Items as="div" className="absolute py-3 pb-6 w-full md:hidden flex flex-col text-white font-circular bg-yellow-800">
            <Menu.Item><Link href="/studash"><div className="px-6 py-4 w-full">Dashboard</div></Link></Menu.Item>
            <Menu.Item><Link href="/profile"><div className="px-6 py-4 w-full">Profile & Bio-data</div></Link></Menu.Item>
-           <Menu.Item><Link href="/student"><div className="px-6 py-4 w-full">Dashboard</div></Link></Menu.Item>
+           <Menu.Item><Link href="/student"><div className="px-6 py-4 w-full">Student Records</div></Link></Menu.Item>
            <Menu.Item><span className="px-6 py-4 w-full">Logout</span></Menu.Item>
         </Menu.Items>
       </Transition>
