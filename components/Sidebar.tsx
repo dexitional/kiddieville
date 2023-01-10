@@ -33,6 +33,8 @@ function Sidebar() {
             */}
 
             <DashNav title="Profile & Bio-data"  link="/profile" />
+            <DashNav title="Parents & Guardians" />
+            
             {/* Student's Management */}
             <DashNav title="Student Records" link="/student" />
             {/* <DashNav title="Student Attendance" /> */}
@@ -42,7 +44,7 @@ function Sidebar() {
             {/* <DashNav title="Student Fees Payment" /> */}
             {/* <DashNav title="Student Feeding & Canteen" /> */}
             {/* <DashNav title="Student Transport" /> */}
-            <DashNav title="Our Classes" />
+            <DashNav title="Student Classes" />
             {/* <DashNav title="Our Subjects" /> */}
             {/* <DashNav title="Our Tutors" /> */}
              {/* Staff Management */}
