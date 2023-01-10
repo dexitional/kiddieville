@@ -94,14 +94,14 @@ function StudentList({ setPage,setRow }: any) {
                                   <FaUserEdit />
                                   <span>Edit</span>
                                </Menu.Item>
-                               <Menu.Item as="button" onClick={() => viewRecord(row.id)} className="py-1 px-2 pl-3 flex space-x-4 items-center">
+                               {/* <Menu.Item as="button" onClick={() => viewRecord(row.id)} className="py-1 px-2 pl-3 flex space-x-4 items-center">
                                   <AiOutlineFolderView />
                                   <span>View</span>
                                </Menu.Item>
                                <Menu.Item as="button" onClick={() => deleteRecord(row.id)} className="py-1 px-2 pl-3 flex space-x-4 items-center">
                                   <FiUpload />
                                   <span>Delete</span>
-                               </Menu.Item>
+                               </Menu.Item> */}
                             </Menu.Items>
                          </Menu.Button>
                       </Menu>
