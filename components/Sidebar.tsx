@@ -14,7 +14,7 @@ function Sidebar() {
             <div className="px-4 py-0 absolute right-0 -rotate-45 rounded text-xl font-bold text-yellow-900/80 bg-white/20 tracking-[0.25rem]">VILLE</div>
         </div>
         <div className="h-[32.2rem] space-y-2 overflow-scroll scrollbar-hide">
-            <DashNav title="Dashboard" active />
+            <DashNav title="Dashboard" link="/studash" active/>
             {/*
             <DashNav title="Students" />
             <DashNav title="Attendance" />
@@ -32,38 +32,38 @@ function Sidebar() {
             <DashNav title="System Reports" />
             */}
 
-            <DashNav title="User Profile" />
+            <DashNav title="Profile & Bio-data"  link="/profile" />
             {/* Student's Management */}
-            <DashNav title="Student Record" />
-            <DashNav title="Student Attendance" />
-            <DashNav title="Student Pickup" />
-            <DashNav title="Student Evaluation" />
-            <DashNav title="Student Bills & Invoices" />
-            <DashNav title="Student Fees Payment" />
-            <DashNav title="Student Feeding & Canteen" />
-            <DashNav title="Student Transport" />
+            <DashNav title="Student Records" link="/student" />
+            {/* <DashNav title="Student Attendance" /> */}
+            {/* <DashNav title="Student Pickup" /> */}
+            {/* <DashNav title="Student Evaluation" /> */}
+            {/* <DashNav title="Student Bills & Invoices" /> */}
+            {/* <DashNav title="Student Fees Payment" /> */}
+            {/* <DashNav title="Student Feeding & Canteen" /> */}
+            {/* <DashNav title="Student Transport" /> */}
             <DashNav title="Our Classes" />
-            <DashNav title="Our Subjects" />
-            <DashNav title="Our Tutors" />
+            {/* <DashNav title="Our Subjects" /> */}
+            {/* <DashNav title="Our Tutors" /> */}
              {/* Staff Management */}
-            <DashNav title="Staff Record" />
-            <DashNav title="Staff Attendance" />
-            <DashNav title="Staff Tasks" />
-            <DashNav title="Lesson Plan" />
-            <DashNav title="Lesson Presentation" />
+            {/* <DashNav title="Staff Records" /> */}
+            {/* <DashNav title="Staff Attendance" /> */}
+            {/* <DashNav title="Staff Tasks" /> */}
+            {/* <DashNav title="Lesson Plan" /> */}
+            {/* <DashNav title="Lesson Presentation" /> */}
            
             {/* Account Management */}
-            <DashNav title="Expenses " />
+            {/* <DashNav title="Expenses " /> */}
             {/* Parent's Management */}
-            <DashNav title="Child Profile" />
-            <DashNav title="Child Attendance" />
-            <DashNav title="Child Pickups" />
-            <DashNav title="Child Payments ( fees/feeding/Transport balance)" />
-            <DashNav title="Child Evaluation" />
+            {/* <DashNav title="Child Profile" /> */}
+            {/* <DashNav title="Child Attendance" /> */}
+            {/* <DashNav title="Child Pickups" /> */}
+            {/* <DashNav title="Child Payments ( fees/feeding/Transport balance)" /> */}
+            {/* <DashNav title="Child Evaluation" /> */}
             {/* Systems menus */}
             <DashNav title="User accounts" />
-            <DashNav title="School Expenses " />
-            <DashNav title="System Reports" />
+            {/* <DashNav title="School Expenses " /> */}
+            {/* <DashNav title="System Reports" /> */}
         </div>
         <div className="absolute bottom-8 w-[90%] mx-1 border-t border-white/10">
             <Logout title="Sign out" />

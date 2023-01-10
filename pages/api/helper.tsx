@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import nc from 'next-connect'
-import API from '../../../backend/controller/apiController'
+import API from '../../backend/controller/apiController'
 const app = nc<NextApiRequest, NextApiResponse>({
     onError: (err,req,res,next) => {
        console.error(err.stack);
@@ -11,15 +11,10 @@ const app = nc<NextApiRequest, NextApiResponse>({
     }
 })
 
-//app.use()
-app.get((req,res) => {
-  return API.fetchTest(req,res)
-})
 
-app.post((req,res) => {
-  const { slug } = req.query
-  if(slug == "admin") return API.authenticateAdmin(req,res)
-  if(slug == "voter") return API.authenticateVoter(req,res)
+
+app.get((req,res) => {
+  return API.fetchHelpers(req,res)  // FETCH ALL DATA
 })
 
 export default app;

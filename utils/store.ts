@@ -33,7 +33,7 @@ export const useUserStore = create(
       },
     }),
     {
-      name: "electoStore", // name of item in the storage (must be unique)
+      name: "kiddieStore", // name of item in the storage (must be unique)
       getStorage: () => localStorage, // (optional) by default the 'localStorage' is used
     }
   )

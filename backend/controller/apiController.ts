@@ -1,16 +1,16 @@
 const fs = require("fs");
 const path = require("path");
 //const sms = require("../config/sms");
-const API = require("../model/apiModel");
+const API = require("../model/apiModelSupabase");
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default {
- 
+
   /* AUTHENTICATION */
-  authenticateAdmin: async (req:NextApiRequest, res:NextApiResponse) => {
-    const { username,password } = req.body;
+  authenticateAdmin: async (req: NextApiRequest, res: NextApiResponse) => {
+    const { username, password } = req.body;
     try {
-      var user = await API.verifyAdmin(username,password);
+      var user = await API.verifyAdmin(username, password);
       if (user) {
         res.status(200).json({ success: true, user });
       } else {
@@ -28,29 +28,25 @@ export default {
     }
   },
 
-  authenticateVoter: async (req:NextApiRequest, res:NextApiResponse) => {
-    const { username } = req.body;
+  authenticateVoter: async (req: NextApiRequest, res: NextApiResponse) => {
+    const { username, password } = req.body;
     try {
-      var user = await API.verifyVoter(username);
+      var user = await API.verifyVoter(username, password);
+      console.log(user)
       if (user) {
-        if(user.vote_status == 1) {
+        if (user.voted == 1) {
           res.status(200).json({
             success: false,
             msg: "You have Voted !!",
           });
-        }else if(user.verified == 1){
-            const data = { ...user, photo: `/api/photos/?tag=${encodeURIComponent(username)}` }
-            res.status(200).json({ success: true, data });
         } else {
-          res.status(200).json({
-            success: false,
-            msg: "Voter Not Verified !!",
-          });
+          const data = { ...user, photo: `/api/photos/?tag=${encodeURIComponent(username)}` }
+          res.status(200).json({ success: true, data });
         }
-      }else{
+      } else {
         res.status(200).json({
           success: false,
-          msg: "Voter Not Found!",
+          msg: "Wrong Voter Credentials!",
         });
       }
     } catch (e) {
@@ -61,7 +57,7 @@ export default {
     }
   },
 
-  fetchTest: async (req:NextApiRequest, res:NextApiResponse) => {
+  fetchTest: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       var data = await API.fetchTest();
       if (data) {
@@ -81,12 +77,12 @@ export default {
     }
   },
 
-  /* ACTIVATION */
 
-  activateVoter: async (req:NextApiRequest, res:NextApiResponse) => {
+  /* STUDENT RECORDS */
+
+  fetchStudents: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const { verify } = req.query
-      var data = await API.activateVoter(verify);
+      var data = await API.fetchStudents(req);
       if (data) {
         res.status(200).json({ success: true, data });
       } else {
@@ -103,9 +99,84 @@ export default {
         .json({ success: false, data: null, msg: "Please Check settings!" });
     }
   },
-  
+
+  fetchStudent: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.fetchStudent(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  postStudents: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.postStudents(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+
+  /* UTILITY HELPERS */
+  fetchHelpers: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.fetchHelpers(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
   /* ELECTIONS */
-  fetchElectionByVoter: async (req:NextApiRequest, res:NextApiResponse) => {
+  fetchElectionByVoter: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { username } = req.query
       var data = await API.fetchElectionByVoter(username);
@@ -126,7 +197,7 @@ export default {
     }
   },
 
-  fetchElectionDataByVoter: async (req:NextApiRequest, res:NextApiResponse) => {
+  fetchElectionDataByVoter: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { username } = req.query
       var data = await API.fetchElectionDataByVoter(username);
@@ -148,7 +219,7 @@ export default {
   },
 
 
-  fetchElectionByCentre: async (req:NextApiRequest, res:NextApiResponse) => {
+  fetchElectionByCentre: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { cid } = req.query
       var data = await API.fetchElectionByCentre(cid);
@@ -169,7 +240,7 @@ export default {
     }
   },
 
-  fetchElectionByActiveCentre: async (req:NextApiRequest, res:NextApiResponse) => {
+  fetchElectionByActiveCentre: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       var data = await API.fetchElectionByActiveCentre();
       if (data) {
@@ -189,10 +260,10 @@ export default {
     }
   },
 
-  postVoteStatus: async (req:NextApiRequest, res:NextApiResponse) => {
+  postVoteStatus: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { finvote, username } = req.query;
-      var data = await API.postVoteStatus(finvote,username);
+      var data = await API.postVoteStatus(finvote, username);
       if (data) {
         res.status(200).json({ success: true, data });
       } else {
@@ -210,10 +281,10 @@ export default {
     }
   },
 
-  fetchVotersByActiveCentre: async (req:NextApiRequest, res:NextApiResponse) => {
+  fetchVotersByActiveCentre: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { search, page } = req.query;
-      var data = await API.fetchVotersByActiveCentre(search,page);
+      var data = await API.fetchVotersByActiveCentre(search, page);
       if (data) {
         res.status(200).json({ success: true, data });
       } else {
@@ -231,10 +302,10 @@ export default {
     }
   },
 
-  
 
-  
-  fetchVerifiedByActiveCentre: async (req:NextApiRequest, res:NextApiResponse) => {
+
+
+  fetchVerifiedByActiveCentre: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       var data = await API.fetchVerifiedByActiveCentre();
       if (data) {
@@ -254,10 +325,10 @@ export default {
     }
   },
 
-  fetchElectionDataById: async (req:NextApiRequest, res:NextApiResponse) => {
+  fetchElectionDataById: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const { eid,username } = req.query
-      var data = await API.fetchElectionDataById(eid,username);
+      const { eid, username } = req.query
+      var data = await API.fetchElectionDataById(eid, username);
       if (data) {
         res.status(200).json({ success: true, data });
       } else {
@@ -276,9 +347,10 @@ export default {
   },
 
   /* VOTING & RECEIPT */
-  postData: async (req:NextApiRequest, res:NextApiResponse) => {
+  postData: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       var resp = await API.postVoteData(req.body);
+      console.log(resp)
       res.status(200).json(resp);
     } catch (e) {
       console.log(e);
@@ -288,10 +360,23 @@ export default {
     }
   },
 
-  fetchReceipt: async (req:NextApiRequest, res:NextApiResponse) => {
+  syncVoteData: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const { rid,username } = req.query
-      var data = await API.fetchReceipt(rid,username);
+      const { eid } = req.query
+      var resp = await API.syncVoteData2(eid);
+      res.status(200).json({ success: true, data: resp });
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  fetchReceipt: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { rid, username } = req.query
+      var data = await API.fetchReceipt(rid, username);
       if (data) {
         res.status(200).json({ success: true, data });
       } else {
@@ -313,7 +398,7 @@ export default {
   /* RESULTS & AGREEMENT */
 
   /* MONITOR & STRONGROOM */
-  fetchMonitor: async (req:NextApiRequest, res:NextApiResponse) => {
+  fetchMonitor: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { mid } = req.query
       var data = await API.fetchMonitor(mid);
@@ -335,7 +420,7 @@ export default {
   },
 
   /* CONTROLS */
-  updateControl: async (req:NextApiRequest, res:NextApiResponse) => {
+  updateControl: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { id, data } = req.body;
       var resp = await API.updateControl(id, data);
@@ -355,7 +440,7 @@ export default {
   },
 
   /* VOTERS & REGISTER */
-  fetchRegister:  async (req:NextApiRequest, res:NextApiResponse) => {
+  fetchRegister: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { gid } = req.query
       var data = await API.fetchRegister(gid);
@@ -375,11 +460,46 @@ export default {
         .json({ success: false, data: null, msg: "Please Check settings!" });
     }
   },
+
+  sendToVoter: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { sendvoter } = req.query
+      var data = await API.sendToVoter(sendvoter);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data!",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  loadVoters: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var resp = await API.loadVoters();
+      res.status(200).json({ success: true, resp });
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+
   /* CANDIDATES */
   /* PORTFOLIOS */
 
   /* CENTRES */
-  activateCentre:  async (req:NextApiRequest, res:NextApiResponse) => {
+  activateCentre: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { activatecentre } = req.query
       var data = await API.activateCentre(activatecentre);
@@ -401,7 +521,7 @@ export default {
   },
 
 
-  loadCentre:  async (req:NextApiRequest, res:NextApiResponse) => {
+  loadCentre: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { loadcentre } = req.query
       var data = await API.loadCentreData(loadcentre);
@@ -422,7 +542,7 @@ export default {
     }
   },
 
-  loadCentrePhotos:  async (req:NextApiRequest, res:NextApiResponse) => {
+  loadCentrePhotos: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { loadphoto } = req.query
       var data = await API.loadCentrePhotos(loadphoto);
@@ -443,7 +563,30 @@ export default {
     }
   },
 
-  resetCentreElections:  async (req:NextApiRequest, res:NextApiResponse) => {
+
+  sendCrendentials: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { sendvoters } = req.query
+      var data = await API.sendCrendentials(sendvoters);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data!",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+
+  resetCentreElections: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       const { reset } = req.query
       var data = await API.resetCentreElections(reset);
@@ -464,7 +607,7 @@ export default {
     }
   },
 
-  fetchCentres:  async (req:NextApiRequest, res:NextApiResponse) => {
+  fetchCentres: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       var data = await API.fetchCentres();
       if (data) {
@@ -483,34 +626,38 @@ export default {
         .json({ success: false, data: null, msg: "Please Check settings!" });
     }
   },
-  
+
   /* PHOTOS */
-  fetchPhoto: async (req:any, res:any) => {
-    const { eid,tag } = req.query
+
+  fetchPhoto: async (req: any, res: any) => {
+    const { eid, tag } = req.query
     var pic = await API.fetchPhoto(tag, eid); // Photo
     if (pic && pic.length > 0) {
-      //var filepath = path.join(__dirname, "/../../../../public", pic[0]?.path);
-      var filepath = path.join("./public", pic[0]?.path);
+      //var filepath = "/../.."+pic[0]?.path;
+      var filepath = path.join(__dirname, "/../../../../backend", pic[0]?.path);
+      var nonepath = path.join(__dirname, "/../../../", "none.png")
       console.log(filepath);
+      console.log(__dirname);
+      console.log("../../" + pic[0]?.path);
       try {
         var stats = fs.statSync(filepath);
         if (stats) {
           res.setHeader('Content-Type', 'image/jpg')
           res
             .status(200)
-            .send(fs.readFileSync(path.join("./public", pic[0]?.path)));
+            .send(fs.readFileSync(filepath));
         } else {
           res.setHeader('Content-Type', 'image/png')
           res
             .status(200)
-            .send(fs.readFileSync((path.join("./public", "none.png"))));
+            .send(fs.readFileSync(nonepath));
         }
       } catch (e) {
         console.log(e);
         res.setHeader('Content-Type', 'image/png')
         res
           .status(200)
-          .send(fs.readFileSync(path.join("./public/upload", "none.png")));
+          .send(fs.readFileSync(nonepath));
       }
     } else {
       res.setHeader('Content-Type', 'image/png')
@@ -519,6 +666,48 @@ export default {
         .send(fs.readFileSync(path.join("./public/upload", "none.png")));
     }
   },
+
+  /*
+  fetchPhoto: async (req:any, res:any) => {
+    const { eid,tag } = req.query
+    var pic = await API.fetchPhoto(tag, eid); // Photo
+    if (pic && pic.length > 0) {
+      var filepath = path.join(__dirname, "/../../../public", pic[0]?.path);
+      //var filepath = path.join("./public", pic[0]?.path);
+      //var filepath = path.join(__dirname,"/../.././public", pic[0]?.path)
+      var nonepath = path.join(__dirname,"../.././public", "none.png")
+      console.log(filepath);
+      console.log(__dirname);
+      console.log(__dirname, "/../../../public", pic[0]?.path);
+      try {
+        var stats = fs.statSync(filepath);
+        if (stats) {
+          res.setHeader('Content-Type', 'image/jpg')
+          res
+            .status(200)
+            .send(fs.readFileSync(filepath));
+        } else {
+          res.setHeader('Content-Type', 'image/png')
+          res
+            .status(200)
+            .send(fs.readFileSync(nonepath));
+        }
+      } catch (e) {
+        console.log(e);
+        res.setHeader('Content-Type', 'image/png')
+        res
+          .status(200)
+          .send(fs.readFileSync(nonepath));
+      }
+    } else {
+      res.setHeader('Content-Type', 'image/png')
+      res
+        .status(200)
+        .send(fs.readFileSync(path.join("./public/upload", "none.png")));
+    }
+  },
+  */
+
 
   /*
   fetchPhoto: async (req:any, res:any) => {
@@ -556,14 +745,14 @@ export default {
   },
   */
 
-  postEvsPhoto: async (req:any, res:any) => {
+  postEvsPhoto: async (req: any, res: any) => {
     var { id, election_id } = req.body;
     //var imageBuffer = decodeBase64Image(req.body.photo);
     var spath = `./public/cdn/photo/evs/${election_id}`;
     const file = id == "logo" ? `${spath}/${id}.png` : `${spath}/${id}.jpg`;
     console.log(file);
     //fs.writeFile(file, imageBuffer.data, async function (err) {
-    fs.writeFile(file, req.body.photo.data, async function (err:any) {
+    fs.writeFile(file, req.body.photo.data, async function (err: any) {
       if (err) {
         console.log(err);
         res
@@ -587,7 +776,7 @@ export default {
   },
 
   /* CONTROLS */
-  saveControl: async (req:NextApiRequest, res:NextApiResponse) => {
+  saveControl: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       var resp = await API.saveControl(req.body);
       res.status(200).json({ success: true, resp });
@@ -598,6 +787,4 @@ export default {
         .json({ success: false, data: null, msg: "Please Check settings!" });
     }
   },
-
-  
 };

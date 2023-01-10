@@ -9,24 +9,24 @@ module.exports = {
    
    verifyAdmin : async (username: string,password: string) => {
       var res;
-      const centre = await db.query("select * from electo.centre where `default` = 1");
+      const centre = await db.query("select * from eb_centre where `default` = 1");
       if(centre && centre.length > 0){
-         res = await db.query("select v.* from electo.admin v where v.username = '"+username+"' and v.password = '"+password+"' and (v.centre_id = "+centre[0].id+" or v.centre_id = 0)");
+         res = await db.query("select v.* from eb_admin v where v.username = '"+username+"' and v.password = '"+password+"' and (v.centre_id = "+centre[0].id+" or v.centre_id = 0)");
          return res && res[0];
       }
    },
 
-   verifyVoter : async (username:string) => {
+   verifyVoter : async (username:string, password:string) => {
       var res;
-      const centre = await db.query("select * from electo.centre where `default` = 1");
+      const centre = await db.query("select * from eb_centre where `default` = 1");
       if(centre && centre.length > 0)
-         res = await db.query("select v.*,m.voted as vote_status from electo.voter v left join electo.voter m on (v.tag = m.tag and v.centre_id = m.centre_id) where v.tag = '"+username+"' and v.centre_id = "+centre[0].id);
+         res = await db.query("select v.*,m.voted as vote_status from eb_voter v left join eb_voter m on (v.tag = m.tag and v.centre_id = m.centre_id) where v.tag = '"+username+"' and v.password = '"+password+"' and v.centre_id = "+centre[0].id);
       return res && res[0];
    },
 
    fetchTest : async () => {
       var res;
-      const centre = await db.query("select * from electo.centre where `default` = 1");
+      const centre = await db.query("select * from eb_centre where `default` = 1");
       if(centre && centre.length > 0) res = centre[0]
         return res;
    },
@@ -36,14 +36,14 @@ module.exports = {
 
    fetchElectionByVoter : async (username:string) => {
       var res;
-      const vt = await db.query("select v.* from electo.voter v left join electo.centre c on v.centre_id = c.id where  c.`default` = 1 and v.verified = 1 and v.tag = '"+username+"'");
+      const vt = await db.query("select v.* from eb_voter v left join eb_centre c on v.centre_id = c.id where  c.`default` = 1 and v.verified = 1 and v.tag = '"+username+"'");
       if(vt && vt.length == 1){
-         const dm = await db.query("select en.* from electo.election en where en.centre_id = "+vt[0].centre_id);
+         const dm = await db.query("select en.* from eb_election en where en.centre_id = "+vt[0].centre_id);
          if(dm && dm.length > 0){
             const dt = [];
             for(var d of dm){
                var vm = {}
-               const et = await db.query("select ev.vote_status,ev.vote_time,ev.vote_sum from electo.elector ev where ev.tag = '"+username+"' and ev.election_id = "+d.id);
+               const et = await db.query("select ev.vote_status,ev.vote_time,ev.vote_sum from eb_elector ev where ev.tag = '"+username+"' and ev.election_id = "+d.id);
                if(et && et.length > 0){
                   vm = { ...et[0] }
                }else{
@@ -60,15 +60,15 @@ module.exports = {
    fetchElectionDataByVoter : async (username:string) => {
       var resm;
       //const vt = await db.query("select v.* from electo.voter v left join electo.centre c on v.centre_id = c.id where c.`default` = 1 and v.verified = 1 and v.tag = '"+username+"'");
-      const vt = await db.query("select v.* from electo.voter v left join electo.centre c on v.centre_id = c.id where c.`default` = 1 and v.tag = '"+username+"'");
+      const vt = await db.query("select v.* from eb_voter v left join eb_centre c on v.centre_id = c.id where c.`default` = 1 and v.tag = '"+username+"'");
       
       if(vt && vt.length == 1){
-        const dm = await db.query("select en.* from electo.election en where en.live_status = 1 and en.centre_id = "+vt[0].centre_id);
+        const dm = await db.query("select en.* from eb_election en where en.live_status = 1 and en.centre_id = "+vt[0].centre_id);
         if(dm && dm.length > 0){
             const dt = [];
             for(var d of dm){
               var vm = <any>{}
-              const et = await db.query("select ev.vote_status,ev.vote_time,ev.vote_sum from electo.elector ev where ev.tag = '"+username+"' and ev.election_id = "+d.id);
+              const et = await db.query("select ev.vote_status,ev.vote_time,ev.vote_sum from eb_elector ev where ev.tag = '"+username+"' and ev.election_id = "+d.id);
               if(et && et.length > 0){
                 vm = { ...et[0] }
               }else{
@@ -78,29 +78,29 @@ module.exports = {
               var data = <any>{};
               // Portfolio data
               var res1 = await db.query(
-                "select * from electo.portfolio where status = 1 and election_id = " + d.id
+                "select * from eb_portfolio where status = 1 and election_id = " + d.id
               );
               console.log(d.id,res1)
               
               if (res1 && res1.length > 0) data.portfolios = res1;
               // Candidate data
               var res2 = await db.query(
-                "select c.*,p.name as portfolio,p.id as pid from electo.candidate c left join electo.portfolio p on c.portfolio_id = p.id where c.status = 1 and p.election_id = " +
+                "select c.*,p.name as portfolio,p.id as pid from eb_candidate c left join eb_portfolio p on c.portfolio_id = p.id where c.status = 1 and p.election_id = " +
                   d.id
               );
               if (res2 && res2.length > 0) data.candidates = res2;
               // Election data
               var res3 = await db.query(
-                "select e.* from electo.election e where e.id = "+d.id);
+                "select e.* from eb_election e where e.id = "+d.id);
               if (res3 && res3.length > 0) data.election = res3;
               // Voters data
               var res4 = await db.query(
-                "select * from electo.elector where election_id = " + d.id);
+                "select * from eb_elector where election_id = " + d.id);
               if (res4 && res4.length > 0) data.electors = res4;
           
               // Voters data
               var res5 = await db.query(
-                "select * from electo.elector where election_id = " + d.id+" and tag = '" +
+                "select * from eb_elector where election_id = " + d.id+" and tag = '" +
                 username +
                 "'"
               );
@@ -117,30 +117,30 @@ module.exports = {
    
    fetchCentres : async () => {
       var res;
-      const et = await db.query("select * from electo.centre");
+      const et = await db.query("select * from eb_centre");
       if(et && et.length > 0) return et;
       return res;
    },
 
    activateCentre : async (cid:string) => {
       var res;
-      const er = await db.query("update centre set `default` = 0");
-      const et = await db.query("update centre set `default` = 1 where id ="+cid);
+      const er = await db.query("update eb_centre set `default` = 0");
+      const et = await db.query("update eb_centre set `default` = 1 where id ="+cid);
       if(et && et.affectedRows > 0) return et;
       return res;
    },
 
    resetCentreElections : async (id:string) => {
       var res;
-      const en = await db.query("select * from electo.election where centre_id = "+id);
+      const en = await db.query("select * from eb_election where centre_id = "+id);
       if(en && en.length > 0){
         // Update Centre Voter DataS
-        await db.query("update electo.voter set voted = 0, verified = 0, verified_at = null where centre_id = "+id+"")
+        await db.query("update eb_voter set voted = 0, verified = 0, verified_at = null where centre_id = "+id+"")
         for(var es of en){
           // Load Candidates of portfolios of elections
-          await db.query("update electo.candidate c left join electo.portfolio p on p.id = c.portfolio_id set votes = 0 where p.election_id = "+es.id)
+          await db.query("update eb+candidate c left join eb_portfolio p on p.id = c.portfolio_id set votes = 0 where p.election_id = "+es.id)
           // Delete Elector
-          await db.query("delete from electo.elector where election_id = "+es.id)
+          await db.query("delete from eb_elector where election_id = "+es.id)
         }
         return en
       }
@@ -149,7 +149,7 @@ module.exports = {
 
    loadCentreData : async (cid:string) => {
       var res;
-      const er = await db.query("select tag,id from electo.centre where id ="+cid);
+      const er = await db.query("select tag,id from eb_centre where id ="+cid);
       if(er && er.length > 0){
         let count = 0
         const httpsAgent = new https.Agent({ rejectUnauthorized: false });
@@ -159,20 +159,20 @@ module.exports = {
           console.log(voters)
           
           for(const vs of voters){
-            const m =  await db.query("select * from electo.voter where tag = '"+vs.regno+"' and centre_id ="+er[0].id);
+            const m =  await db.query("select * from eb_voter where tag = '"+vs.regno+"' and centre_id ="+er[0].id);
             if(m && m.length == 0){
               const dt = { tag:vs.regno, name:vs.name, descriptor: vs.programme, centre_id:er[0].id, status:1, voted:0 }
-              const et = await db.query("insert into electo.voter set ?", dt);
+              const et = await db.query("insert into eb_voter set ?", dt);
               if(et && et.affectRows > 0) count+=1
             }
           }
         }
         if(count > 0){
-          const x =  await db.query("select * from electo.voter where centre_id = "+er[0].id);
-          const m =  await db.query("select * from electo.election where centre_id = "+er[0].id);
+          const x =  await db.query("select * from eb_voter where centre_id = "+er[0].id);
+          const m =  await db.query("select * from eb_election where centre_id = "+er[0].id);
           if(m && m.length > 0){
             for( const ms of m){
-              const et = await db.query("update electo.election set voters_count = "+x.length+" where id ="+cid);
+              const et = await db.query("update eb_election set voters_count = "+x.length+" where id ="+cid);
               if(et && et.affectRows > 0) count+=1
             }
           }
@@ -186,7 +186,7 @@ module.exports = {
   
   loadCentrePhotos : async (cid:string) => {
     var res;
-    const m =  await db.query("select * from electo.voter where centre_id ="+cid);
+    const m =  await db.query("select * from eb_voter where centre_id ="+cid);
     if(m && m.length > 0){
       let count = 0;
       const dest = `./public/upload/voter/`
@@ -206,16 +206,16 @@ module.exports = {
 
    fetchElectionByCentre : async (cid:string) => {
       var res;
-      const et = await db.query("select en.* from electo.election en where en.id = "+cid);
+      const et = await db.query("select en.* from eb_election en where en.id = "+cid);
       if(et && et.length > 0) return et;
       return res;
    },
 
    fetchElectionByActiveCentre : async () => {
       var res;
-      const ct = await db.query("select * from electo.centre en where `default` = 1");
+      const ct = await db.query("select * from eb_centre en where `default` = 1");
       if(ct && ct.length > 0){
-         const et = await db.query("select en.* from electo.election en where en.centre_id = "+ct[0].id);
+         const et = await db.query("select en.* from eb_election en where en.centre_id = "+ct[0].id);
          if(et && et.length > 0) return et;
       }
       return res;
@@ -223,11 +223,11 @@ module.exports = {
 
    fetchVotersByActiveCentre : async (search:any,page:any) => {
         var res;
-        const ct = await db.query("select * from electo.centre en where `default` = 1");
+        const ct = await db.query("select * from eb_centre en where `default` = 1");
         if(ct && ct.length > 0){
           const sql = search ?
-           "select ev.* from electo.voter ev where (ev.tag like '%"+search+"%' or ev.name like '%"+search+"%')  and ev.centre_id = "+ct[0].id+" limit 10" : 
-           "select ev.* from electo.voter ev where ev.centre_id = "+ct[0].id+" limit 10";
+           "select ev.* from eb_voter ev where (ev.tag like '%"+search+"%' or ev.name like '%"+search+"%')  and ev.centre_id = "+ct[0].id+" limit 10" : 
+           "select ev.* from eb_voter ev where ev.centre_id = "+ct[0].id+" limit 10";
           const et = await db.query(sql);
           if(et && et.length > 0) return et;
         }
@@ -237,9 +237,9 @@ module.exports = {
 
    fetchVerifiedByActiveCentre : async () => {
       var res;
-      const ct = await db.query("select * from electo.centre en where `default` = 1");
+      const ct = await db.query("select * from eb_centre en where `default` = 1");
       if(ct && ct.length > 0){
-         const sql = "select v.* from electo.voter v where v.verified = 1 and v.voted = 0 and v.centre_id = "+ct[0].id
+         const sql = "select v.* from eb_voter v where v.verified = 1 and v.voted = 0 and v.centre_id = "+ct[0].id
          const et = await db.query(sql);
          console.log(sql)
          if(et && et.length > 0) return et;
@@ -252,27 +252,27 @@ module.exports = {
     var data = <any>{};
     // Portfolio data
     var res = await db.query(
-      "select * from electo.portfolio where status = 1 and election_id = " + eid
+      "select * from eb_portfolio where status = 1 and election_id = " + eid
     );
     if (res && res.length > 0) data.portfolios = res;
     // Candidate data
     var res = await db.query(
-      "select c.*,p.name as portfolio,p.id as pid from electo.candidate c left join electo.portfolio p on c.portfolio_id = p.id where c.status = 1 and p.election_id = " +
+      "select c.*,p.name as portfolio,p.id as pid from eb_candidate c left join eb_portfolio p on c.portfolio_id = p.id where c.status = 1 and p.election_id = " +
         eid
     );
     if (res && res.length > 0) data.candidates = res;
     // Election data
     var res = await db.query(
-      "select e.* from electo.election e where e.id = "+eid);
+      "select e.* from eb_election e where e.id = "+eid);
     if (res && res.length > 0) data.election = res;
     // Voters data
     var res = await db.query(
-      "select * from electo.elector where election_id = " + eid);
+      "select * from eb_elector where election_id = " + eid);
     if (res && res.length > 0) data.electors = res;
 
     // Voters data
     var res = await db.query(
-      "select * from electo.elector where election_id = " + eid+" and tag = '" +
+      "select * from eb_elector where election_id = " + eid+" and tag = '" +
       tag +
       "'"
     );
@@ -285,21 +285,21 @@ module.exports = {
       var data = <any>{};
       // Portfolio data
       var res = await db.query(
-        "select * from electo.portfolio where status = 1 and election_id = " + mid
+        "select * from eb_portfolio where status = 1 and election_id = " + mid
       );
       if (res && res.length > 0) data.portfolios = res;
       // Candidate data
       var res = await db.query(
-        "select c.*,p.name as portfolio from electo.candidate c left join electo.portfolio p on c.portfolio_id = p.id where c.status = 1 and p.election_id = " +
+        "select c.*,p.name as portfolio from eb_candidate c left join eb_portfolio p on c.portfolio_id = p.id where c.status = 1 and p.election_id = " +
           mid
       );
       if (res && res.length > 0) data.candidates = res;
       // Election data
-      var res = await db.query("select * from electo.election where id = " + mid);
+      var res = await db.query("select * from eb_election where id = " + mid);
       if (res && res.length > 0) data.election = res;
       // Voters data
       var res = await db.query(
-        "select * from electo.elector where election_id = " + mid
+        "select * from eb_elector where election_id = " + mid
       );
       if (res && res.length > 0) data.electors = res;
   
@@ -312,11 +312,11 @@ module.exports = {
       let data = <any>{},
         selections = [];
       var res = await db.query(
-        "select * from electo.elector where election_id = " + rid
+        "select * from eb_elector where election_id = " + rid
       );
       if (res && res.length > 0) data.electors = res;
       var res = await db.query(
-        "select * from electo.elector where election_id = " +
+        "select * from eb_elector where election_id = " +
           rid +
           " and tag = '" +
           tag +
@@ -327,7 +327,7 @@ module.exports = {
         if (candidates) {
           for (const candid of candidates) {
             var cs = await db.query(
-              "select c.*,p.name as portfolio from electo.candidate c left join electo.portfolio p on c.portfolio_id = p.id where p.election_id = " +
+              "select c.*,p.name as portfolio from eb_candidate c left join eb_portfolio p on c.portfolio_id = p.id where p.election_id = " +
                 rid +
                 " and c.id = " +
                 candid
@@ -342,9 +342,9 @@ module.exports = {
     
     fetchRegister: async (id:string) => {
       // Voters data
-      var res = await db.query("select * from electo.election where id = " + id);
+      var res = await db.query("select * from eb_election where id = " + id);
       if (res && res.length > 0) {
-        var voters = await db.query("select v.*,ifnull(ev.vote_status,0) as voted from electo.voter v left join electo.elector ev on (v.tag = ev.tag and ev.election_id = "+id+") where v.centre_id = " + res[0].centre_id);
+        var voters = await db.query("select v.*,ifnull(ev.vote_status,0) as voted from eb_voter v left join eb_elector ev on (v.tag = ev.tag and ev.election_id = "+id+") where v.centre_id = " + res[0].centre_id);
         return { ...(res && res[0]), electors:voters };
       } 
       return null;
@@ -359,12 +359,12 @@ module.exports = {
       try {
         // Get Portfolio count & Verify whether equal to data posted
         var res = await db.query(
-          "select * from electo.portfolio where status = 1 and election_id = " + id
+          "select * from eb_portfolio where status = 1 and election_id = " + id
         );
         if (res && res.length > 0) {
           const count = res.length;
           var vt = await db.query(
-            "select * from electo.elector where election_id = " +
+            "select * from eb_elector where election_id = " +
               id +
               " and trim(tag) = '" +
               tag +
@@ -378,11 +378,11 @@ module.exports = {
               if (vals.length > 0) {
                 for (var val of vals) {
                   const cs = await db.query(
-                    "select * from electo.candidate where id = " + val
+                    "select * from eb_candidate where id = " + val
                   );
                   if (cs && cs.length > 0) {
                     const ups = await db.query(
-                      "update electo.candidate set votes = (votes+1) where id = " +
+                      "update eb_candidate set votes = (votes+1) where id = " +
                         val
                     );
                     if (ups.affectedRows > 0) update_count += 1;
@@ -403,7 +403,7 @@ module.exports = {
                 tag,
                 election_id: id,
               };
-              const ins = await db.query("insert into electo.elector set ?", dm);
+              const ins = await db.query("insert into eb_elector set ?", dm);
   
               if (ins && ins.insertId > 0) {
                 //await db.commit();
@@ -438,7 +438,7 @@ module.exports = {
     },
 
     updateControl: async (id:string, data:any) => {
-      const sql = "update electo.election set ? where id = " + id;
+      const sql = "update eb_election set ? where id = " + id;
       const res = await db.query(sql, data);
       return res;
     },
@@ -447,13 +447,13 @@ module.exports = {
     fetchPhoto: async (tag:string, eid:string) => {
       var res;
       if (tag == "logo") {
-        res = await db.query("select logo as path from electo.election where id = ?", [eid]);
+        res = await db.query("select logo as path from eb_election where id = ?", [eid]);
       }else if (tag == "centre") {
          res = [{path:`./upload/logos/${eid.split(' ').join('').toLowerCase()}.jpg`}]
       }else if (tag == "voter") {
         res = [{path:`./upload/voter/${eid.split('/').join('').toLowerCase()}.jpg`}]
       }else if (tag == "candid") {
-        res = await db.query("select photo as path from electo.candidate where id = ?", [eid]);
+        res = await db.query("select photo as path from eb_candidate where id = ?", [eid]);
       }
       return res;
     },
@@ -461,9 +461,9 @@ module.exports = {
     // VOTER MODELS
     fetchEligibleVoters : async () => {
       var res;
-      const ct = await db.query("select * from electo.centre en where `default` = 1");
+      const ct = await db.query("select * from eb_centre en where `default` = 1");
       if(ct && ct.length > 0){
-         const et = await db.query("select v.* from electo.voter v where v.centre_id = "+ct[0].id);
+         const et = await db.query("select v.* from eb_voter v where v.centre_id = "+ct[0].id);
          if(et && et.length > 0) return et;
       }
       return res;
@@ -471,13 +471,13 @@ module.exports = {
 
    
    activateVoter: async (id:string) => {
-    const sql = "update electo.voter set ? where id = " + id;
+    const sql = "update eb_voter set ? where id = " + id;
     const res = await db.query(sql, { verified: 1, verified_at: new Date() });
     return res;
   },
 
   postVoteStatus: async (id:string,tag:string) => {
-    const sql = "update electo.voter set ? where tag = '"+tag+"' and centre_id = " + id;
+    const sql = "update eb_voter set ? where tag = '"+tag+"' and centre_id = " + id;
     const res = await db.query(sql, { verified: 0, voted: 1 });
     return res;
   },
@@ -492,7 +492,7 @@ module.exports = {
     var res;
     const { id, data:body } = data;
     if(data){
-      const sql = "update electo.election set ? where id = "+id;
+      const sql = "update eb_election set ? where id = "+id;
       const res = await db.query(sql, body);
     } 
     return res;

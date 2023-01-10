@@ -27,23 +27,23 @@ function Studash() {
          <p className="px-6 py-3 w-full rounded-md font-medium font-circular text-center text-sm sm:text-md text-zinc-500 bg-green-600/5">You are logged-in as a <span className="text-bold tracking-wide text-yellow-600">Parent | Tutor | Administrator | Accountant </span></p>
 
          {/* Cards */}
-         <div className="w-full grid md:grid-cols-2 gap-4">
+         <div className="w-full grid md:grid-cols-3 gap-4">
             <MenuCard title="Student Record" desc="Manage list of students in the management system." Icon={HiHomeModern} link_text="View records" link="/student" />
-            <MenuCard title="Student Attendance" desc="Manage school attendace and student reporting." Icon={HiHomeModern} link_text="View records" link="/student" />
-            <MenuCard title="Student Pickups" desc="Manage assigned pickup persons of students." Icon={MdMeetingRoom} link_text="View records" link="/login" />
-            <MenuCard title="Student Evaluation" desc="Manage student performances & assessments." Icon={MdMeetingRoom} link_text="View records" link="/login" />
-            <MenuCard title="Student Bills & Invoices" desc="Manage student bills, invoices & charges." Icon={MdMeetingRoom} link_text="View records" link="/login" />
-            <MenuCard title="Student Fees Payment" desc="Manage student fees payments and other revenues." Icon={MdMeetingRoom} link_text="View records" link="/login" />
-            <MenuCard title="Student Feeding & Canteen" desc="Manage student feeding, canteen fees & payments." Icon={MdMeetingRoom} link_text="View records" link="/login" />
-            <MenuCard title="Student Transport" desc="Manage student transportation payments & reports." Icon={MdMeetingRoom} link_text="View records" link="/login" />
-            <MenuCard title="Student Bills & Invoices" desc="Manage student bills, invoices & charges." Icon={MdMeetingRoom} link_text="View records" link="/login" />
-            <MenuCard title="User Profile" desc="Manage and view profile of active user." Icon={HiHomeModern} link_text="View records" link="/student" />
-            <MenuCard title="Hall Occupants" desc="Manage list of hall occupants in the management system. De-activate, activate and view all halls" Icon={FaRestroom} link_text="View Occupants" link="/login" />
-            <MenuCard title="Room Reservations" desc="Start your application to get enrolled into the NSS Program at The Driver and Vehicle Liencsing Authority." Icon={GiBunkBeds} link_text="View Reservations" link="/login" />
-            <MenuCard title="Accomodation Requests" desc="Start your application to get enrolled into the NSS Program at The Driver and Vehicle Liencsing Authority." Icon={BsStickies} link_text="View Requests" link="/login" />
-            <MenuCard title="Accomodation Sessions" desc="Start your application to get enrolled into the NSS Program at The Driver and Vehicle Liencsing Authority." Icon={MdAutoAwesomeMotion} link_text="View Sessions" link="/login" />
-            <MenuCard title="User accounts" desc="Start your application to get enrolled into the NSS Program at The Driver and Vehicle Liencsing Authority." Icon={MdOutlineSupervisorAccount} link_text="View Accounts" link="/login" />
-            <MenuCard title="System Reports" desc="Start your application to get enrolled into the NSS Program at The Driver and Vehicle Liencsing Authority." Icon={TbReport} link_text="View Reports" link="/login" />
+            {/* <MenuCard title="Student Attendance" desc="Manage school attendace and student reporting." Icon={HiHomeModern} link_text="View records" link="/student" /> */}
+            {/* <MenuCard title="Student Pickups" desc="Manage assigned pickup persons of students." Icon={MdMeetingRoom} link_text="View records" link="/login" /> */}
+            {/* <MenuCard title="Student Evaluation" desc="Manage student performances & assessments." Icon={MdMeetingRoom} link_text="View records" link="/login" /> */}
+            {/* <MenuCard title="Student Bills & Invoices" desc="Manage student bills, invoices & charges." Icon={MdMeetingRoom} link_text="View records" link="/login" /> */}
+            {/* <MenuCard title="Student Fees Payment" desc="Manage student fees payments and other revenues." Icon={MdMeetingRoom} link_text="View records" link="/login" /> */}
+            {/* <MenuCard title="Student Feeding & Canteen" desc="Manage student feeding, canteen fees & payments." Icon={MdMeetingRoom} link_text="View records" link="/login" /> */}
+            {/* <MenuCard title="Student Transport" desc="Manage student transportation payments & reports." Icon={MdMeetingRoom} link_text="View records" link="/login" /> */}
+            <MenuCard title="Our Classes" desc="Manage student classes and assigned class tutors." Icon={MdMeetingRoom} link_text="View records" link="/class" />
+            {/* <MenuCard title="Our Subjects" desc="Manage student subjects with curriculum." Icon={MdMeetingRoom} link_text="View records" link="/login" /> */}
+            {/* <MenuCard title="Our Tutors" desc="Manage student bills, invoices & charges." Icon={MdMeetingRoom} link_text="View records" link="/login" /> */}
+            {/* <MenuCard title="Student Bills & Invoices" desc="Manage student bills, invoices & charges." Icon={MdMeetingRoom} link_text="View records" link="/login" /> */}
+            {/* <MenuCard title="Student Bills & Invoices" desc="Manage student bills, invoices & charges." Icon={MdMeetingRoom} link_text="View records" link="/login" /> */}
+            <MenuCard title="User Profile" desc="Manage and view profile of active user." Icon={HiHomeModern} link_text="View records" link="/profile" />
+            {/* <MenuCard title="User accounts" desc="Start your application to get enrolled into the NSS Program at The Driver and Vehicle Liencsing Authority." Icon={MdOutlineSupervisorAccount} link_text="View Accounts" link="/login" /> */}
+            {/* <MenuCard title="System Reports" desc="Start your application to get enrolled into the NSS Program at The Driver and Vehicle Liencsing Authority." Icon={TbReport} link_text="View Reports" link="/login" /> */}
          </div>
       </div>
       </DashLayout>

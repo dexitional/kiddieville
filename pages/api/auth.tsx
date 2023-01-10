@@ -11,16 +11,13 @@ const app = nc<NextApiRequest, NextApiResponse>({
     }
 })
 
-
-
+//app.use()
 app.get((req,res) => {
-  return API.fetchPhoto(req,res)  // FETCH ELECTIONS BY CENTRE ID
+  return API.fetchTest(req,res)
 })
 
 app.post((req,res) => {
-   const { action } = req.query
-   if(action == 'vote') return API.postData(req,res)
-   if(action == 'control') return API.postData(req,res)
+  return API.authenticateAdmin(req,res)
 })
 
 export default app;

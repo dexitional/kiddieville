@@ -10,16 +10,16 @@ import TopMenu from '../components/TopMenu'
 
 function DashLayout({ children} : any) {
   return (
-    <div className="w-full flex max-h-full min-h-screen bg-slate-50 ">
+    <div className="w-full flex max-h-full min-h-screen bg-slate-50 scrollbar-hide">
         <Sidebar />
 
         {/* Content */}
-        <div className="w-full  bg-gray-100">
+        <div className="w-full bg-gray-100">
           <TopMenu />
           <MobileMenu />
           
           {/* Main Content */}
-          <div className="flex bg-zinc-100">
+          <div className="w-full flex bg-zinc-100  scrollbar-hide">
               { children}
           </div>
 
