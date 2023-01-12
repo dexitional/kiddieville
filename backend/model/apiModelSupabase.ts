@@ -64,6 +64,23 @@ module.exports = {
     return res;
   },
 
+  fetchStudentInfo: async (id: string) => {
+    var res;
+    var dt = {}
+    const { data: et }: any = await db.from('student').select(`*,parent(*),class:class(name)`).eq('id', id).single()
+    const { data: ts }: any = await db.from('transact').select(`*`).eq('student_id', id)
+    const { data: at }: any = await db.from('attendance').select(`*`).eq('student_id', id)
+
+
+    if (et && ts && at)
+      return {
+        student: et,
+        transact: ts,
+        attendance: at
+      }
+    return res;
+  },
+
   postStudents: async (req: any) => {
     var res;
     const { id } = req.body
@@ -73,6 +90,13 @@ module.exports = {
       : await db.from('student').insert(req.body).select()
     if (et) return et;
     return res
+  },
+
+  deleteStudent: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('student').delete().eq('id', id).select()
+    if (et) return et;
+    return res;
   },
 
 

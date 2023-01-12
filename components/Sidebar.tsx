@@ -31,7 +31,7 @@ function Sidebar() {
             <DashNav title="User accounts" />
             <DashNav title="System Reports" />
             */}
-
+            <DashNav title="Academic Calendar" />
             <DashNav title="Profile & Bio-data"  link="/profile" />
             <DashNav title="Parents & Guardians" />
             

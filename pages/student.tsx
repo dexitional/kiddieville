@@ -5,7 +5,6 @@ import StudentList from '../components/list/StudentList'
 
 function Student() {
   const [ page,setPage ] = useState('list')
-  const [ id,setId ] = useState(0)
   const [ row,setRow ] = useState({})
    
 
@@ -19,10 +18,6 @@ function Student() {
      }
      return view
   }
-
-  useEffect(() => { 
-    console.log(page)
-  },[page])
 
   return (
     <DashLayout>

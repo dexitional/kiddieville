@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useState} from 'react'
 import {MdMeetingRoom,MdOutlineSpaceDashboard,MdAutoAwesomeMotion,MdOutlineSupervisorAccount} from 'react-icons/md'
 import {FiUpload} from 'react-icons/fi'
 import {HiHomeModern} from 'react-icons/hi2'
@@ -14,10 +14,26 @@ import MobileMenu from '../components/MobileMenu'
 import TopMenu from '../components/TopMenu'
 import DashLayout from '../components/DashLayout'
 import MenuCard from '../components/MenuCard'
+import Modal from '../components/Modal'
+import StudentProfile from '../components/list/StudentProfile'
 
 function Studash() {
+  const [openModal, setOpenModal ] = useState(false)
+  const [modalData, setModalData ] = useState({})
+  const [eid, setEid ] = useState(null)
+  
+  const me = (id:any) => {
+     
+     setOpenModal(true)
+  }
+
   return (
      <DashLayout>
+      { 
+        <Modal openModal={openModal} setOpenModal={setOpenModal}>
+          <StudentProfile studentId={eid} />
+        </Modal>
+      }
       <div className="py-12 md:w-[55%] lg:w-[70%] mx-5 md:mx-auto flex flex-col space-y-6 items-center ">
          {/* Profile & Welcome */}
          <div className="flex flex-col items-center">
@@ -25,7 +41,8 @@ function Studash() {
             <p className="text-xs sm:text-sm text-medium font-circular">KIDDIE VILLE STUDENT MANAGEMENT SYSTEM</p>
          </div>
          <p className="px-6 py-3 w-full rounded-md font-medium font-circular text-center text-sm sm:text-md text-zinc-500 bg-green-600/5">You are logged-in as a <span className="text-bold tracking-wide text-yellow-600">Parent | Tutor | Administrator | Accountant </span></p>
-
+           <button onClick={()=> me(1)}>CLick</button>
+         
          {/* Cards */}
          <div className="w-full grid md:grid-cols-3 gap-4">
             <MenuCard title="Student Record" desc="Manage list of students in the management system." Icon={HiHomeModern} link_text="View records" link="/student" />

@@ -15,17 +15,8 @@ function TransactionSnip({ studentId }: any) {
    const [ keyword,setKeyword ] = useState("")
    //const { admin } = useUserStore((state) => state);
    //useUserStore.setState({ eid: id,ename: name })
-   const { data } = useSWR(`/api/transact?page=${vpage-1}&studentId=${studentId}`, fetcher)
-   const onChange = (e:any) => {
-      e.preventDefault();
-      setKeyword(e.target.value)
-    }
-  
-    const onSubmit = (e:any) => {
-      e.preventDefault();
-      setKeyword(e.target.value)
-    }
-
+   //const { data } = useSWR(`/api/transact?page=${vpage-1}&studentId=${studentId}`, fetcher)
+   
     const viewRecord = (id:string) => {}
     const deleteRecord = (id:string) => {}
   

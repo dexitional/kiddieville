@@ -121,9 +121,51 @@ export default {
     }
   },
 
+  fetchStudentInfo: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { studinfo:id } = req.query
+      var data = await API.fetchStudentInfo(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
   postStudents: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       var data = await API.postStudents(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  deleteStudent: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.deleteStudent(id);
       if (data) {
         res.status(200).json({ success: true, data });
       } else {

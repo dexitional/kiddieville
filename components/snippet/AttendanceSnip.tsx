@@ -15,7 +15,7 @@ function AttendanceSnip({ studentId }: any) {
    const [ keyword,setKeyword ] = useState("")
    //const { admin } = useUserStore((state) => state);
    //useUserStore.setState({ eid: id,ename: name })
-   const { data } = useSWR(`/api/attendance?page=${vpage-1}&studentId=${studentId}`, fetcher)
+   //const { data } = useSWR(`/api/attendance?page=${vpage-1}&studentId=${studentId}`, fetcher)
    const onChange = (e:any) => {
       e.preventDefault();
       setKeyword(e.target.value)

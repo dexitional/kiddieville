@@ -14,8 +14,9 @@ const app = nc<NextApiRequest, NextApiResponse>({
 
 
 app.get((req,res) => {
-  const { id } = req.query
+  const { id,studinfo } = req.query
   if(id) return API.fetchStudent(req,res)  // FETCH DATA BY STUDENTID
+  else if(studinfo) return API.fetchStudentInfo(req,res)  // FETCH DATA BY STUDENTID
   else return API.fetchStudents(req,res)  // FETCH ALL DATA
 })
 
@@ -23,4 +24,8 @@ app.post((req,res) => {
   return API.postStudents(req,res)  // FETCH DATA BY STUDENTID
 })
 
+app.delete((req,res) => {
+   return API.deleteStudent(req,res)  // FETCH DATA BY STUDENTID
+ })
+ 
 export default app;
