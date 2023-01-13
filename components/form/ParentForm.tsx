@@ -4,15 +4,14 @@ import Input from '../Input'
 import Button from '../Button'
 import Select from '../Select'
 import useSWR from 'swr'
-import { fetcher, postStudent } from '../../utils/apiClient'
+import { postParent } from '../../utils/apiClient'
 import Notiflix from 'notiflix'
 import moment from 'moment'
 
 
-function StudentForm({ setPage,row }: any) {
+function ParentForm({ setPage,row }: any) {
   const [ form, setForm ] = useState({});
   const formRef = useRef<any>(null)
-  const { data:helper } = useSWR(`/api/helper`, fetcher)
   const onChange = (e:any) => {
      setForm({...form,[e.target.name]:e.target.value})
   }
@@ -21,7 +20,7 @@ function StudentForm({ setPage,row }: any) {
     e.preventDefault()
     try{
       if(row.id <= 0 && form && Object.keys(form).length == 0) throw new Error("NO DATA PROVIDED!")
-      const res = await postStudent({ ...form,id:row.id });
+      const res = await postParent({ ...form,id:row.id });
       if (res.success) {
         // Do something if passed
         Notiflix.Notify.success('RECORD SAVED!');
@@ -44,10 +43,9 @@ function StudentForm({ setPage,row }: any) {
   }
 
   return (
-    helper ?
     <div className="py-4 px-4 w-full md:w-full m-5 md:mx-10 flex flex-col space-y-6 items-center bg-white border rounded-lg drop-shadow-sm shadow-gray-100">
         <div className="w-full flex flex-col md:flex-row items-center justify-between bg-blue-50/10 border border-gray-300/70 focus:border-gray-600/70 rounded-md overflow-hidden">
-           <span className="my-2 md:my-0 px-6 sm:text-lg tracking-widest font-bold text-[#000131] font-arial">STUDENT RECORDS</span>
+           <span className="my-2 md:my-0 px-6 sm:text-lg tracking-widest font-bold text-[#000131] font-arial">PARENTS & GUARDIANS</span>
            <PagerForm setPage={setPage} onSubmit={onSubmit} onCancel={onCancel} />
         </div>
         <div className="w-full">
@@ -64,39 +62,23 @@ function StudentForm({ setPage,row }: any) {
                        <option value="F">Female</option>
                      </Select>
                      <Input defaultValue={row?.location} name="location" onChange={onChange} label="Location" type="text" placeholder='Location'/>
-                     <Input defaultValue={row?.address} name="address" onChange={onChange} label="Address" type="text" placeholder='Address'/>
                      
                      <span className="md:flex hidden"><Button label="SAVE" type="submit" position="right" onClick={() => null }/></span>
                   </div>
                   <div className="space-y-3 flex-1">
-                     <Input defaultValue={row?.phone} name="phone" onChange={onChange} label="Reachable Phone Number " type="tel" placeholder='Reachable Phone Number' />
-                     <Input defaultValue={row?.refno} name="refno" onChange={onChange} label="Student ID" type="text" placeholder='Student ID'/>
-                     <Select label="Parent or Guardian" defaultValue={row?.parent_id} name="parent_id" onChange={onChange}>
-                       <option disabled selected>-- Choose --</option>
-                       { helper && helper.data && helper.data.parent.map((r:any,i:React.Key) => <option key={i} value={r.id}>{r.refno} - {r.lname}, {r.fname} {r.mname}</option> )}
-                     </Select>
-                     <Select label="Class Group" defaultValue={row?.class_id} name="class_id" onChange={onChange}>
-                       <option disabled selected>-- Choose --</option>
-                       { helper && helper.data && helper.data.class.map((r:any,i:React.Key) => <option key={i} value={r.id}>{r.name}</option> )}
-                     </Select>
-                     <Select label="School Feeding Enrolled" defaultValue={row?.feed_member} name="feed_member" onChange={onChange}>
-                       <option disabled selected>-- Choose --</option>
-                       <option value="1">Yes</option>
-                       <option value="0">No</option>
-                     </Select>
-                     <Select label="School Bus Enrolled" defaultValue={row?.bus_member} name="bus_member" onChange={onChange}>
-                       <option disabled selected>-- Choose --</option>
-                       <option value="1">Yes</option>
-                       <option value="0">No</option>
-                     </Select>
-                     <Input defaultValue={row.doa ? moment(row.doa).format('YYYY-MM-DD'): null } name="doa" onChange={onChange} label="Date of Admission" type="date" placeholder='Date of Admission' />
+                     <Input defaultValue={row?.phone} name="phone" onChange={onChange} label="Phone Number " type="tel" placeholder='Phone Number' />
+                     <Input defaultValue={row?.address} name="address" onChange={onChange} label="Address" type="text" placeholder='Address'/>
+                     <Input defaultValue={row?.email} name="email" onChange={onChange} label="Email Address" type="email" placeholder='Email Address'/>
+                     <Input defaultValue={row?.no_ward} name="no_ward" onChange={onChange} label="Number of Wards" type="number" placeholder='Number of Wards'/>
+                     <Input defaultValue={row?.refno} name="refno" onChange={onChange} label="Parent Reference ID" type="text" placeholder='Parent Reference ID'/>
+                     <Input defaultValue={row?.password} readonly name="password" onChange={onChange} label="Parent Password" type="text" placeholder='Parent Password'/>
+                     
                      <span className="md:hidden flex"><Button label="SAVE" type="submit" position="right" onClick={() => null }/></span>
                   </div>
                </div>
             </form>
         </div>
     </div>
-    : null 
   )
 }
-export default StudentForm
+export default ParentForm

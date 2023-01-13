@@ -31,9 +31,9 @@ function Sidebar() {
             <DashNav title="User accounts" />
             <DashNav title="System Reports" />
             */}
-            <DashNav title="Academic Calendar" />
-            <DashNav title="Profile & Bio-data"  link="/profile" />
-            <DashNav title="Parents & Guardians" />
+            <DashNav title="Academic Calendar" link="/calendar"/>
+            <DashNav title="Profile & Bio-data" link="/profile"/>
+            <DashNav title="Parents & Guardians"  link="/parent"/>
             
             {/* Student's Management */}
             <DashNav title="Student Records" link="/student" />
@@ -44,7 +44,7 @@ function Sidebar() {
             {/* <DashNav title="Student Fees Payment" /> */}
             {/* <DashNav title="Student Feeding & Canteen" /> */}
             {/* <DashNav title="Student Transport" /> */}
-            <DashNav title="Student Classes" />
+            <DashNav title="Student Classes"  link="/class" />
             {/* <DashNav title="Our Subjects" /> */}
             {/* <DashNav title="Our Tutors" /> */}
              {/* Staff Management */}
@@ -63,7 +63,7 @@ function Sidebar() {
             {/* <DashNav title="Child Payments ( fees/feeding/Transport balance)" /> */}
             {/* <DashNav title="Child Evaluation" /> */}
             {/* Systems menus */}
-            <DashNav title="User accounts" />
+            {/* <DashNav title="User accounts" /> */}
             {/* <DashNav title="School Expenses " /> */}
             {/* <DashNav title="System Reports" /> */}
         </div>

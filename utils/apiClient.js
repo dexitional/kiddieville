@@ -45,3 +45,70 @@ export const deleteStudent = async (id) => {
   return res.data;
 }; 
 
+
+// CALENDAR RECORD REQUESTS
+
+export const fetchCalendars = async () => {
+  const res = await axios.get(`/api/calendar`);
+  return { data, error, isLoading } = useSWR('/api/calendar', fetcher)
+  //return res.data;
+}; 
+
+export const fetchCalendar = async (id) => {
+  const res = await axios.get(`/api/calendar?id=${encodeURIComponent(id)}`);
+  return res.data;
+}; 
+
+export const postCalendar = async (data) => {
+  const res = await axios.post(`/api/calendar`,{...data});
+  return res.data;
+}; 
+
+export const deleteCalendar = async (id) => {
+  const res = await axios.delete(`/api/calendar?id=${encodeURIComponent(id)}`);
+  return res.data;
+}; 
+
+
+
+// PARENT RECORD REQUESTS
+
+export const postParent = async (data) => {
+  const res = await axios.post(`/api/parent`,{...data});
+  return res.data;
+}; 
+
+export const deleteParent = async (id) => {
+  const res = await axios.delete(`/api/parent?id=${encodeURIComponent(id)}`);
+  return res.data;
+}; 
+
+
+
+// ATTENDANCE RECORD REQUESTS
+
+export const postAttendance = async (data) => {
+  const res = await axios.post(`/api/attendance`,{...data});
+  return res.data;
+}; 
+
+export const deleteAttendance = async (id) => {
+  const res = await axios.delete(`/api/attendance?id=${encodeURIComponent(id)}`);
+  return res.data;
+}; 
+
+
+
+// TRANSACTIONS RECORD REQUESTS
+
+export const postTransacts = async (data) => {
+  const res = await axios.post(`/api/transacts`,{...data});
+  return res.data;
+}; 
+
+export const deleteTransact = async (id) => {
+  const res = await axios.delete(`/api/transact?id=${encodeURIComponent(id)}`);
+  return res.data;
+}; 
+
+

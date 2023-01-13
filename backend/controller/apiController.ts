@@ -123,7 +123,7 @@ export default {
 
   fetchStudentInfo: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
-      const { studinfo:id } = req.query
+      const { studinfo: id } = req.query
       var data = await API.fetchStudentInfo(id);
       if (data) {
         res.status(200).json({ success: true, data });
@@ -184,10 +184,478 @@ export default {
   },
 
 
+
+  /* CALENDAR RECORDS */
+
+  fetchCalendars: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.fetchCalendars(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  fetchCalendar: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.fetchCalendar(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  postCalendar: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.postCalendar(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  deleteCalendar: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.deleteCalendar(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+
+
+  /* CALENDAR RECORDS */
+
+  fetchClasses: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.fetchClasses(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  fetchClass: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.fetchClass(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  postClass: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.postClass(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  deleteClass: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.deleteClass(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+
+
+  /* CALENDAR RECORDS */
+
+  fetchParents: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.fetchParents(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  fetchParentInfo: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { profile: id } = req.query
+      var data = await API.fetchParentInfo(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  fetchParent: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.fetchParent(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  postParent: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.postParent(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  deleteParent: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.deleteParent(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+
+  /* TRANSACTIONS RECORDS */
+
+  fetchTransacts: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.fetchTransacts(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  fetchTransact: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.fetchTransact(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  postTransact: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.postTransact(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  deleteTransact: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.deleteTransact(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+
+  /* ATTENDANCES RECORDS */
+
+  fetchAttendances: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.fetchAttendances(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  fetchAttendance: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.fetchAttendance(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  postAttendance: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.postAttendance(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  deleteAttendance: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      const { id } = req.query
+      var data = await API.deleteAttendance(id);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
   /* UTILITY HELPERS */
   fetchHelpers: async (req: NextApiRequest, res: NextApiResponse) => {
     try {
       var data = await API.fetchHelpers(req);
+      if (data) {
+        res.status(200).json({ success: true, data });
+      } else {
+        res.status(200).json({
+          success: false,
+          data: null,
+          msg: "No Data !",
+        });
+      }
+    } catch (e) {
+      console.log(e);
+      res
+        .status(200)
+        .json({ success: false, data: null, msg: "Please Check settings!" });
+    }
+  },
+
+  fetchHelpers2: async (req: NextApiRequest, res: NextApiResponse) => {
+    try {
+      var data = await API.fetchHelpers2(req);
       if (data) {
         res.status(200).json({ success: true, data });
       } else {

@@ -100,6 +100,299 @@ module.exports = {
   },
 
 
+  /* CALENDAR MODELS */
+  fetchCalendars: async ({ query: { page = 1, keyword = "" } }) => {
+    var res;
+    const { from, to } = await getPagination(page, 10)
+    const { data: et, count, error } = keyword
+      ?
+      await db
+        .from('calendar')
+        .select(`*`, { count: "exact" })
+        .or(`or(name.ilike.%${keyword}%,term.ilike.%${keyword}%)`)
+        .order("id", { ascending: true })
+        .range(from, to)
+      :
+      await db
+        .from('calendar')
+        .select(`*`, { count: "exact" }).order('id', { ascending: true })
+        .order("id", { ascending: true })
+        .range(from, to)
+
+    if (et && et.length > 0)
+      return {
+        data: et,
+        count: count,
+        page: +page,
+        keyword: keyword
+      }
+    return res;
+  },
+
+  fetchCalendar: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('calendar').select(`*`).eq('id', id).single()
+    if (et) return et;
+    return res;
+  },
+
+  postCalendar: async (req: any) => {
+    var res;
+    const { id } = req.body
+    delete req.body.id
+    const { data: et }: any = id > 0
+      ? await db.from('calendar').update(req.body).eq('id', id).select()
+      : await db.from('calendar').insert(req.body).select()
+    if (et) return et;
+    return res
+  },
+
+  deleteCalendar: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('calendar').delete().eq('id', id).select()
+    if (et) return et;
+    return res;
+  },
+
+
+  /* CLASS MODELS */
+  fetchClasses: async ({ query: { page = 1, keyword = "" } }) => {
+    var res;
+    const { from, to } = await getPagination(page, 10)
+    const { data: et, count, error } = keyword
+      ?
+      await db
+        .from('class')
+        .select(`*`, { count: "exact" })
+        .or(`or(name.ilike.%${keyword}%,description.ilike.%${keyword}%)`)
+        .order("id", { ascending: true })
+        .range(from, to)
+      :
+      await db
+        .from('class')
+        .select(`*`, { count: "exact" }).order('id', { ascending: true })
+        .order("id", { ascending: true })
+        .range(from, to)
+
+    if (et && et.length > 0)
+      return {
+        data: et,
+        count: count,
+        page: +page,
+        keyword: keyword
+      }
+    return res;
+  },
+
+  fetchClass: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('class').select(`*`).eq('id', id).single()
+    if (et) return et;
+    return res;
+  },
+
+  postClass: async (req: any) => {
+    var res;
+    const { id } = req.body
+    delete req.body.id
+    const { data: et }: any = id > 0
+      ? await db.from('class').update(req.body).eq('id', id).select()
+      : await db.from('class').insert(req.body).select()
+    if (et) return et;
+    return res
+  },
+
+  deleteClass: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('class').delete().eq('id', id).select()
+    if (et) return et;
+    return res;
+  },
+
+
+
+  /* PARENTS MODELS */
+  fetchParents: async ({ query: { page = 1, keyword = "" } }) => {
+    var res;
+    const { from, to } = await getPagination(page, 10)
+    const { data: et, count, error } = keyword
+      ?
+      await db
+        .from('parent')
+        .select(`*`, { count: "exact" })
+        .or(`or(fname.ilike.%${keyword}%,lname.ilike.%${keyword}%),or(refno.ilike.%${keyword}%,phone.ilike.%${keyword}%)`)
+        .order("id", { ascending: true })
+        .range(from, to)
+      :
+      await db
+        .from('parent')
+        .select(`*`, { count: "exact" }).order('id', { ascending: true })
+        .order("id", { ascending: true })
+        .range(from, to)
+
+    if (et && et.length > 0)
+      return {
+        data: et,
+        count: count,
+        page: +page,
+        keyword: keyword
+      }
+    return res;
+  },
+
+  fetchParentInfo: async (id: string) => {
+    var res;
+    var dt = {}
+    const { data: pt }: any = await db.from('parent').select(`*`).eq('id', id).single()
+    const { data: st }: any = await db.from('student').select(`*`).eq('parent_id', id)
+
+    if (pt && st)
+      return {
+        parent: pt,
+        student: st,
+      }
+    return res;
+  },
+
+
+  fetchParent: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('parent').select(`*`).eq('id', id).single()
+    if (et) return et;
+    return res;
+  },
+
+  postParent: async (req: any) => {
+    var res;
+    const { id } = req.body
+    delete req.body.id
+    const { data: et }: any = id > 0
+      ? await db.from('parent').update(req.body).eq('id', id).select()
+      : await db.from('parent').insert(req.body).select()
+    if (et) return et;
+    return res
+  },
+
+  deleteParent: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('parent').delete().eq('id', id).select()
+    if (et) return et;
+    return res;
+  },
+
+
+
+  /* TRANSACTIONS MODELS */
+  fetchTransacts: async ({ query: { page = 1, keyword = "" } }) => {
+    var res;
+    const { from, to } = await getPagination(page, 10)
+    const { data: et, count, error } = keyword
+      ?
+      await db
+        .from('transact')
+        .select(`*,student(fname,lname)`, { count: "exact" })
+        .or(`or(student.fname.ilike.%${keyword}%,student.lname.ilike.%${keyword}%),or(refid.ilike.%${keyword}%)`)
+        .order("id", { ascending: true })
+        .range(from, to)
+      :
+      await db
+        .from('transact')
+        .select(`*`, { count: "exact" }).order('id', { ascending: true })
+        .order("id", { ascending: true })
+        .range(from, to)
+
+    if (et && et.length > 0)
+      return {
+        data: et,
+        count: count,
+        page: +page,
+        keyword: keyword
+      }
+    return res;
+  },
+
+  fetchTransact: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('transact').select(`*`).eq('id', id).single()
+    if (et) return et;
+    return res;
+  },
+
+  postTransact: async (req: any) => {
+    var res;
+    const { id } = req.body
+    delete req.body.id
+    const { data: et }: any = id > 0
+      ? await db.from('transact').update(req.body).eq('id', id).select()
+      : await db.from('transact').insert(req.body).select()
+    if (et) return et;
+    return res
+  },
+
+  deleteTransact: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('transact').delete().eq('id', id).select()
+    if (et) return et;
+    return res;
+  },
+
+
+
+  /* ATTENDANCES MODELS */
+  fetchAttendances: async ({ query: { page = 1, keyword = "" } }) => {
+    var res;
+    const { from, to } = await getPagination(page, 10)
+    const { data: et, count, error } = keyword
+      ?
+      await db
+        .from('attendance')
+        .select(`*,student(fname,lname)`, { count: "exact" })
+        .or(`or(student.fname.ilike.%${keyword}%,student.lname.ilike.%${keyword}%),or(created_at.ilike.%${keyword}%,student.refno.ilike.%${keyword}%)`)
+        .order("id", { ascending: true })
+        .range(from, to)
+      :
+      await db
+        .from('attendace')
+        .select(`*`, { count: "exact" }).order('id', { ascending: true })
+        .order("id", { ascending: true })
+        .range(from, to)
+
+    if (et && et.length > 0)
+      return {
+        data: et,
+        count: count,
+        page: +page,
+        keyword: keyword
+      }
+    return res;
+  },
+
+  fetchAttendance: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('attendance').select(`*`).eq('id', id).single()
+    if (et) return et;
+    return res;
+  },
+
+  postAttendance: async (req: any) => {
+    var res;
+    const { id } = req.body
+    delete req.body.id
+    const { data: et }: any = id > 0
+      ? await db.from('attendance').update(req.body).eq('id', id).select()
+      : await db.from('attendance').insert(req.body).select()
+    if (et) return et;
+    return res
+  },
+
+  deleteAttendance: async (id: string) => {
+    var res;
+    const { data: et }: any = await db.from('attendance').delete().eq('id', id).select()
+    if (et) return et;
+    return res;
+  },
+
+
 
   /* HELPER MODELS */
   fetchHelpers: async (id: string) => {
@@ -110,6 +403,16 @@ module.exports = {
       return {
         class: cs,
         parent: pt
+      }
+    return res;
+  },
+
+  fetchHelpers2: async (id: string) => {
+    var res;
+    const { data: st }: any = await db.from('student').select(`*`).eq('status', 1)
+    if (st)
+      return {
+        student: st,
       }
     return res;
   },
