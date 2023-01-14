@@ -1,7 +1,7 @@
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
 
-function Modal({ openModal, setOpenModal,children }:any) {
+function Modal({ openModal, setOpenModal,children, size }:any) {
     
   return (
     <>
@@ -30,7 +30,7 @@ function Modal({ openModal, setOpenModal,children }:any) {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <Dialog.Panel className="w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-2 text-left align-middle shadow-xl transition-all">{children}</Dialog.Panel>
+                <Dialog.Panel className={ size ? `w-full ${size} transform overflow-hidden rounded-lg bg-white p-2 text-left align-middle shadow-xl transition-all`:`w-full max-w-5xl transform overflow-hidden rounded-lg bg-white p-2 text-left align-middle shadow-xl transition-all`}>{children}</Dialog.Panel>
               </Transition.Child>
             </div>
           </div>

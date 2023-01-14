@@ -244,7 +244,7 @@ module.exports = {
     var res;
     var dt = {}
     const { data: pt }: any = await db.from('parent').select(`*`).eq('id', id).single()
-    const { data: st }: any = await db.from('student').select(`*`).eq('parent_id', id)
+    const { data: st }: any = await db.from('student').select(`*,class(name)`).eq('parent_id', id)
 
     if (pt && st)
       return {
@@ -266,6 +266,9 @@ module.exports = {
     var res;
     const { id } = req.body
     delete req.body.id
+    const { data: dm, count }: any = await db.from('student').select(`*`, { count: "exact" }).eq('parent_id', id)
+    console.log(dm, count)
+    if (dm && dm.length > 0 && id > 0) req.body = { ...req.body, no_ward: count }
     const { data: et }: any = id > 0
       ? await db.from('parent').update(req.body).eq('id', id).select()
       : await db.from('parent').insert(req.body).select()

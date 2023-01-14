@@ -14,7 +14,6 @@ function Parent() {
        case 'list': view = <ParentList setPage={setPage} setRow={setRow} />; break;
        case 'create': view = <ParentForm setPage={setPage} row={row} />; break;
        case 'edit': view =  <ParentForm setPage={setPage} row={row} />; break;
-      // default: view = <StudentList setPage={setPage} />; break;
      }
      return view
   }

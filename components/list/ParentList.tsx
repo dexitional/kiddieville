@@ -12,6 +12,7 @@ import { AiOutlineFolderView } from 'react-icons/ai'
 import Modal from '../Modal'
 import StudentProfile from './StudentProfile'
 import Notiflix from 'notiflix'
+import ParentProfile from './ParentProfile'
 
 function ParentList({ setPage,setRow }: any) {
    const [ vpage,setVpage ] = useState(1)
@@ -61,8 +62,8 @@ function ParentList({ setPage,setRow }: any) {
   return (
     <>
     { eid > 0 ?
-      <Modal openModal={openModal} setOpenModal={setOpenModal}>
-         {/* <StudentProfile id={eid} /> */}
+      <Modal openModal={openModal} setOpenModal={setOpenModal} size="max-w-md">
+         <ParentProfile id={eid} />
       </Modal> 
       : null
     }
